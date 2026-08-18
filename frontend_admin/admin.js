@@ -823,22 +823,6 @@
     }
 
     // ══════════════════════════════════════════════
-    // SETTINGS
-    // ══════════════════════════════════════════════
-
-    function renderSettings() {
-    var pill = document.getElementById('backendStatusPill');
-    if (!pill) return;
-    if (USE_BACKEND) {
-        pill.textContent = 'Aktif';
-        pill.className = 'status-pill on';
-    } else {
-        pill.textContent = 'Nonaktif';
-        pill.className = 'status-pill off';
-    }
-    }
-
-    // ══════════════════════════════════════════════
     // HELPERS
     // ══════════════════════════════════════════════
 
