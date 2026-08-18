@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+    <html lang="id">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHEM Admin Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="admin.css">
+    </head>
+    <body>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- LOGIN GATE — tampil sebelum dashboard    -->
+    <!-- ═══════════════════════════════════════ -->
+    <div class="login-gate" id="loginGate">
+        <div class="login-box">
+        <div class="login-logo">
+            <h1>SHEM</h1>
+            <p>Admin Panel</p>
+        </div>
+
+        <h2 class="login-title">Masuk ke Dashboard</h2>
+        <p class="login-sub">Khusus untuk admin SHEMPARFUME</p>
+
+        <div class="login-form-group">
+            <label>Email</label>
+            <input class="login-field" type="email" id="adminEmail" placeholder="admin@shemparfum.com" />
+        </div>
+
+        <div class="login-form-group">
+            <label>Password</label>
+            <div class="login-pw-wrap">
+            <input class="login-field" type="password" id="adminPassword" placeholder="Masukkan password" />
+            <button class="login-toggle-pw" type="button" onclick="toggleAdminPw()">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+            </div>
+            <p class="login-error-msg" id="adminLoginError"></p>
+        </div>
+
+        <button class="login-submit-btn" id="adminLoginBtn" onclick="handleAdminLogin()">Masuk</button>
+
+        <p class="login-hint">Demo: admin@shemparfum.com / admin123</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- DASHBOARD — disembunyikan sampai login   -->
+    <!-- ═══════════════════════════════════════ -->
+    <div class="container" id="adminContainer" style="display:none;">
+
+        <!-- ═══ MOBILE MENU BUTTON & OVERLAY (khusus layar sempit) ═══ -->
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Buka menu">☰</button>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- ═══ SIDEBAR ═══ -->
+        <aside class="sidebar" id="sidebarEl">
+        <div class="logo">
+            <h1>SHEM</h1>
+            <p>Admin Panel</p>
+        </div>
+
+        <nav>
+            <ul id="sidebarMenu">
+            <li class="active" data-page="dashboard">Dashboard</li>
+            <li data-page="produk">Produk</li>
+            <li data-page="pesanan">Pesanan</li>
+            <li data-page="pelanggan">Member</li>
+            <li data-page="review">Review</li>
+            </ul>
+        </nav>
+
+        <button class="logout-btn" id="logoutBtn">Logout</button>
+        </aside>
+
+        <!-- ═══ MAIN CONTENT ═══ -->
+        <main class="content">
+
+        <!-- ── DASHBOARD ── -->
+        <section class="page active" id="page-dashboard">
+            <div class="page-head">
+            <div>
+                <h2>Dashboard</h2>
+                <p class="page-sub">Ringkasan performa toko SHEM hari ini</p>
+            </div>
+            <button class="midtrans-button" type="button" onclick="connectMidtrans()">Hubungkan Midtrans</button>
+            </div>
+
+            <div class="cards">
+            <div class="card">
+                <h3>Total Produk</h3>
+                <span id="statProduk">0</span>
+            </div>
+            <div class="card">
+                <h3>Total Order</h3>
+                <span id="statOrder">0</span>
+            </div>
+            <div class="card">
+                <h3>Revenue</h3>
+                <span id="statRevenue">Rp0</span>
+            </div>
+            <div class="card">
+                <h3>Pending Order</h3>
+                <span id="statPending">0</span>
+            </div>
+            </div>
+
+            <div class="table-box">
+            <div class="table-header">
+                <h3>Produk Terbaru</h3>
+                <button onclick="goToPage('produk')">+ Tambah Produk</button>
+            </div>
+            <div class="table-scroll">
+                <table>
+                <thead><tr><th>Produk</th><th>Kategori</th><th>Harga</th><th>Status</th></tr></thead>
+                <tbody id="dashboardProductTable"></tbody>
+                </table>
+            </div>
+            </div>
+        </section>
+
+        <!-- ── PRODUK (CRUD) ── -->
+        <section class="page" id="page-produk">
+            <div class="page-head">
+            <div>
+                <h2>Produk</h2>
+                <p class="page-sub">Kelola semua varian parfum SHEM</p>
+            </div>
+            </div>
+
+            <div class="table-box">
+            <div class="table-header">
+                <h3>Daftar Produk <span class="count-badge" id="produkCount">0</span></h3>
+                <div class="order-toolbar">
+                <input class="filter-select" type="text" id="produkSearch" placeholder="Cari nama produk..." oninput="renderProduk()" />
+                <button onclick="openProductModal()">+ Tambah Produk</button>
+                </div>
+            </div>
+            <div class="table-scroll">
+                <table>
+                <thead><tr><th>Produk</th><th>Kategori</th><th>Harga</th><th>Ukuran</th><th>Badge</th><th>Aksi</th></tr></thead>
+                <tbody id="produkTable"></tbody>
+                </table>
+            </div>
+            </div>
+        </section>
+
+        <!-- ── PESANAN / TRANSAKSI ── -->
+        <section class="page" id="page-pesanan">
+            <div class="page-head">
+            <div>
+                <h2>Pesanan</h2>
+                <p class="page-sub">Pantau dan kelola status transaksi member</p>
+            </div>
+            </div>
+
+            <div class="cards">
+            <div class="card">
+                <h3>Lunas</h3>
+                <span id="ordPaid">0</span>
+            </div>
+            <div class="card">
+                <h3>Menunggu</h3>
+                <span id="ordPending">0</span>
+            </div>
+            <div class="card">
+                <h3>Gagal</h3>
+                <span id="ordFailed">0</span>
+            </div>
+            </div>
+
+            <div class="table-box">
+            <div class="table-header">
+                <h3>Semua Transaksi <span class="count-badge" id="pesananCount">0</span></h3>
+                <div class="order-toolbar">
+                <button class="midtrans-button" type="button" onclick="fetchMidtransOrders()">Tarik dari Midtrans</button>
+                <select class="filter-select" id="orderFilter" onchange="renderPesanan()">
+                <option value="all">Semua Status</option>
+                <option value="paid">Lunas</option>
+                <option value="pending">Menunggu</option>
+                <option value="failed">Gagal</option>
+                </select>
+                </div>
+            </div>
+            <div class="table-scroll">
+                <table>
+                <thead><tr><th>ID Order</th><th>Pelanggan</th><th>Items</th><th>Alamat</th><th>Total</th><th>Pembayaran</th><th>Status</th><th>Aksi</th></tr></thead>
+                <tbody id="pesananTable"></tbody>
+                </table>
+            </div>
+            </div>
+        </section>
+
+        <!-- ── PELANGGAN / MEMBER ── -->
+        <section class="page" id="page-pelanggan">
+            <div class="page-head">
+            <div>
+                <h2>Member</h2>
+                <p class="page-sub">Daftar member yang sudah terdaftar & kelola voucher</p>
+            </div>
+            </div>
+            <div class="table-box">
+            <div class="table-header">
+                <h3>Member SHEM <span class="count-badge" id="pelangganCount">0</span></h3>
+                <input class="filter-select" type="text" id="pelangganSearch" placeholder="Cari nama, email, atau no. HP..." oninput="renderPelanggan()" />
+            </div>
+            <div class="table-scroll">
+                <table>
+                <thead><tr><th>Nama</th><th>Email</th><th>No. HP</th><th>Bergabung</th><th>Voucher</th><th>Riwayat</th></tr></thead>
+                <tbody id="pelangganTable"></tbody>
+                </table>
+            </div>
+            </div>
+        </section>
+
+        <!-- ── REVIEW ── -->
+        <section class="page" id="page-review">
+            <div class="page-head">
+            <div>
+                <h2>Review</h2>
+                <p class="page-sub">Ulasan dan rating dari pelanggan</p>
+            </div>
+            </div>
+            <div class="table-box">
+            <div class="table-header">
+                <h3>Review Terbaru <span class="count-badge" id="reviewCount">0</span></h3>
+                <select class="filter-select" id="reviewFilter" onchange="renderReview()">
+                <option value="all">Semua</option>
+                <option value="visible">Tampil</option>
+                <option value="hidden">Disembunyikan</option>
+                </select>
+            </div>
+            <div class="table-scroll">
+                <table>
+                <thead><tr><th>Pelanggan</th><th>Produk</th><th>Rating</th><th>Komentar</th><th>Balasan Admin</th><th>Status</th><th>Aksi</th></tr></thead>
+                <tbody id="reviewTable"></tbody>
+                </table>
+            </div>
+            </div>
+        </section>
+
+        <!-- ── ARTIKEL ── -->
+        <section class="page" id="page-artikel">
+            <div class="page-head">
+            <div>
+                <h2>Artikel</h2>
+                <p class="page-sub">Kelola konten blog dan artikel SHEM</p>
+            </div>
+            </div>
+            <div class="table-box">
+            <div class="table-header">
+                <h3>Daftar Artikel <span class="count-badge" id="artikelCount">0</span></h3>
+                <button>+ Tulis Artikel</button>
+            </div>
+            <div class="empty-state">
+                <div class="empty-icon">📰</div>
+                <p>Belum ada artikel.</p>
+                <p class="empty-sub">Artikel yang kamu tulis akan muncul di sini.</p>
+            </div>
+            </div>
+        </section>
+
+        <!-- ── PENGATURAN ── -->
+        <section class="page" id="page-pengaturan">
+            <div class="page-head">
+            <div>
+                <h2>Pengaturan</h2>
+                <p class="page-sub">Konfigurasi umum toko SHEM</p>
+            </div>
+            </div>
+            <div class="table-box settings-box">
+            <div class="setting-row">
+                <div>
+                <h4>Mode Backend</h4>
+                <p>Status koneksi ke server backend (USE_BACKEND)</p>
+                </div>
+                <span class="status-pill off" id="backendStatusPill">Nonaktif</span>
+            </div>
+            <div class="setting-row">
+                <div><h4>Nama Toko</h4><p>SHEMPARFUME</p></div>
+            </div>
+            <div class="setting-row">
+                <div><h4>Email Kontak</h4><p>info@shemparfum.com</p></div>
+            </div>
+            </div>
+        </section>
+
+        </main>
+    </div>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- PRODUCT MODAL (Add / Edit) — CRUD       -->
+    <!-- ═══════════════════════════════════════ -->
+    <div class="admin-modal-overlay" id="productModalOverlay" onclick="handleProductModalClick(event)">
+        <div class="admin-modal-box">
+        <button class="admin-modal-close" onclick="closeProductModal()">✕</button>
+        <h3 class="admin-modal-title" id="productModalTitle">Tambah Produk</h3>
+
+        <div class="admin-form-row">
+            <div class="admin-form-group">
+            <label>Nama Produk</label>
+            <input class="admin-field" type="text" id="pf_name" placeholder="contoh: Peace of Mind" />
+            </div>
+            <div class="admin-form-group">
+            <label>Kategori</label>
+            <select class="admin-field" id="pf_category">
+                <option value="fresh">Fresh</option>
+                <option value="floral">Floral</option>
+                <option value="woody">Woody</option>
+                <option value="oriental">Oriental</option>
+            </select>
+            </div>
+        </div>
+
+        <div class="admin-form-group">
+            <label>Badge</label>
+            <select class="admin-field" id="pf_badge">
+            <option value="">Tidak ada</option>
+            <option value="new">New</option>
+            <option value="sale">Sale</option>
+            </select>
+        </div>
+
+        <div class="admin-form-group">
+            <label>Notes / Aroma</label>
+            <input class="admin-field" type="text" id="pf_notes" placeholder="Fresh · Calm · Comforting" />
+        </div>
+
+        <div class="admin-form-group">
+            <label>Deskripsi</label>
+            <textarea class="admin-field admin-textarea" id="pf_desc" placeholder="Deskripsi produk..."></textarea>
+        </div>
+
+        <div class="admin-form-group">
+            <label>Gambar Produk</label>
+            <div class="upload-area" id="uploadArea" onclick="document.getElementById('pf_img_file').click()">
+            <input type="file" id="pf_img_file" accept="image/*" style="display:none;" onchange="handleImageUpload(event)" />
+            <div class="upload-preview" id="uploadPreview">
+                <span class="upload-icon">📷</span>
+                <p class="upload-text">Klik untuk upload gambar</p>
+                <p class="upload-sub">JPG, PNG, WEBP — Max 2MB</p>
+            </div>
+            </div>
+            <input type="hidden" id="pf_img" />
+        </div>
+
+        <div class="admin-form-group">
+            <label>Ukuran & Harga</label>
+            <div class="size-price-row">
+            <label class="size-price-item">
+                <input type="checkbox" id="pf_size10" value="10ml" onchange="updateSizePricePreview()" />
+                <span class="size-label">10ml</span>
+                <span class="size-price-tag">Rp 100.000</span>
+            </label>
+            <label class="size-price-item">
+                <input type="checkbox" id="pf_size55" value="55ml" checked onchange="updateSizePricePreview()" />
+                <span class="size-label">55ml</span>
+                <span class="size-price-tag">Rp 350.000</span>
+            </label>
+            </div>
+            <div class="size-price-preview" id="sizePricePreview"></div>
+        </div>
+
+        <p class="admin-error-msg" id="productFormError"></p>
+
+        <button class="admin-save-btn" id="productSaveBtn" onclick="saveProduct()">Simpan Produk</button>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- ORDER DETAIL MODAL                       -->
+    <!-- ═══════════════════════════════════════ -->
+    <div class="admin-modal-overlay" id="orderModalOverlay" onclick="handleOrderModalClick(event)">
+        <div class="admin-modal-box">
+        <button class="admin-modal-close" onclick="closeOrderModal()">✕</button>
+        <h3 class="admin-modal-title">Detail Pesanan</h3>
+        <div id="orderDetailContent"></div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="admin-toast" id="adminToast"></div>
+
+    <script src="admin.js"></script>
+    </body>
+    </html>

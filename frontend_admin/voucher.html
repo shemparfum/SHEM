@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+    <html lang="id">
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Berikan Voucher — SHEM Admin</title>
+    <link rel="stylesheet" href="admin.css" />
+    <style>
+        .voucher-page { max-width: 760px; margin: 0 auto; }
+        .voucher-card { background: var(--white); border: .5px solid #eee; border-radius: 14px; padding: 28px; box-shadow: 0 6px 20px rgba(26,22,18,.05); }
+        .voucher-card h3 { font-size: 16px; font-weight: 500; margin-bottom: 20px; }
+        .voucher-member { background: var(--gold-pale); border-radius: 10px; padding: 16px; margin-bottom: 24px; }
+        .voucher-member strong { display: block; font-size: 16px; margin-bottom: 4px; }
+        .voucher-member span { color: var(--mid); font-size: 13px; }
+        .voucher-actions { display: flex; gap: 10px; margin-top: 20px; }
+        .voucher-actions button { flex: 1; }
+        .secondary-btn { padding: 12px; background: transparent; color: var(--dark); border: .5px solid #ddd; border-radius: 6px; font: 500 13px 'DM Sans', sans-serif; cursor: pointer; }
+        .secondary-btn:hover { border-color: var(--gold); background: var(--gold-pale); }
+        .voucher-result { display:none; margin-top: 20px; padding: 16px; border-radius: 8px; background: #eaf6ec; color: var(--green); font-size: 13px; }
+        @media (max-width: 600px) { .voucher-page { padding: 0; } .voucher-card { padding: 20px; } .voucher-actions { flex-direction: column-reverse; } }
+    </style>
+    </head>
+    <body>
+    <main class="content voucher-page">
+        <div class="page-head">
+        <div>
+            <h2>Berikan Voucher</h2>
+            <p class="page-sub">Buat dan kelola voucher khusus untuk member</p>
+        </div>
+        </div>
+        <section class="voucher-card">
+        <h3>Member yang dipilih</h3>
+        <div class="voucher-member">
+            <strong id="memberName">Memuat member...</strong>
+            <span id="memberEmail"></span>
+        </div>
+        <div class="admin-form-group">
+            <label for="discount">Besar Diskon (%)</label>
+            <input class="admin-field" id="discount" type="number" min="1" max="100" value="10" />
+        </div>
+        <div class="admin-form-group">
+            <label for="voucherCode">Kode Voucher</label>
+            <input class="admin-field" id="voucherCode" type="text" placeholder="Contoh: SHEM-HEMAT10" />
+        </div>
+        <div class="admin-form-group">
+            <label for="expiry">Tanggal Kadaluarsa</label>
+            <input class="admin-field" id="expiry" type="date" />
+        </div>
+        <p class="admin-error-msg" id="formError"></p>
+        <div class="voucher-actions">
+            <button class="secondary-btn" type="button" onclick="history.back()">Kembali</button>
+            <button class="admin-save-btn" type="button" onclick="saveVoucher()">Simpan Voucher</button>
+        </div>
+        <div class="voucher-result" id="result"></div>
+        </section>
+    </main>
+    <script>
+        // Kunci localStorage yang sama dipakai di admin.js — supaya data member
+        // (dan voucher yang disimpan di sini) selalu sinkron dengan admin.html.
+        const CUSTOMERS_STORAGE_KEY = 'shem_admin_customers';
+        function getCustomers() {
+        try {
+            const saved = localStorage.getItem(CUSTOMERS_STORAGE_KEY);
+            if (saved) return JSON.parse(saved);
+        } catch (e) {}
+        return [];
+        }
+        const customers = getCustomers();
+        const id = new URLSearchParams(location.search).get('customer_id');
+        const member = customers.find(c => String(c.id) === String(id));
+        document.getElementById('memberName').textContent = member ? member.name : 'Member tidak ditemukan';
+        document.getElementById('memberEmail').textContent = member ? member.email : 'Silakan kembali ke halaman Member.';
+        document.getElementById('voucherCode').value = 'SHEM-' + Math.random().toString(36).slice(2, 7).toUpperCase();
+        function saveVoucher() {
+        const discount = Number(document.getElementById('discount').value);
+        const code = document.getElementById('voucherCode').value.trim().toUpperCase();
+        const error = document.getElementById('formError');
+        error.textContent = '';
+        if (!member) { error.textContent = 'Member tidak ditemukan.'; return; }
+        if (!discount || discount < 1 || discount > 100) { error.textContent = 'Diskon harus berada di antara 1–100%.'; return; }
+        if (!code) { error.textContent = 'Kode voucher wajib diisi.'; return; }
+        member.voucher = { code: code, discount: discount };
+        localStorage.setItem(CUSTOMERS_STORAGE_KEY, JSON.stringify(customers));
+
+        const result = document.getElementById('result');
+        result.style.display = 'block';
+        result.textContent = 'Voucher ' + code + ' sebesar ' + discount + '% berhasil disimpan untuk ' + member.name + '.';
+        }
+    </script>
+    </body>
+    </html>

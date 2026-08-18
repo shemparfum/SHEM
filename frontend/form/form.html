@@ -1,0 +1,176 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SHEM Parfum — Checkout</title>
+    <link rel="stylesheet" href="form.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+
+    <nav style="display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 3rem; background: rgba(249,245,240,0.92); backdrop-filter:blur(12px); border-bottom:0.5px solid var(--border); position:fixed; top:0; left:0; right:0; z-index:100;">
+      <a href="../../index.html" class="nav-logo">
+      <img src="../../asset/shem.png" alt="SHEM Parfume Logo" class="brand-logo" />
+      <span>SHEMPARFUME</span>
+    </a>
+
+    <a href="../../index.html" style="font-family:'DM Sans',sans-serif; font-size:13px; color:var(--mid); text-decoration:none; display:flex; align-items:center; gap:6px; transition:color 0.2s;">
+      ← Back to Shop  
+    </a>
+    </nav>;"
+
+    <main class="checkout-layout">
+
+      <!-- LEFT: Form -->
+      <section class="form-section">
+
+        <h2 class="section-title">Shipping Address</h2>
+        <!-- Info member auto-fill -->
+        <div id="memberInfo" style="display:none; background:#f0faf4; border:0.5px solid #c2eacc; border-radius:6px; padding:10px 14px; font-size:13px; color:#2d7a3a; margin-bottom:14px;"></div>
+
+        <div class="form-group">
+          <input class="field-input" type="email" id="email" placeholder="Email Address (optional)" />
+          <p class="field-hint">Order details will be sent to this email</p>
+        </div>
+        <div class="form-group">
+          <input class="field-input" type="text" id="fullname" placeholder="Full Name of Recipient" />
+        </div>
+        <div class="form-group">
+          <input class="field-input" type="tel" id="phone" placeholder="Phone Number of Recipient" />
+        </div>
+        <div class="form-group">
+          <div class="field-select">
+            <select id="country">
+              <option value="ID">Indonesia</option>
+            </select>
+            <svg class="select-arrow" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="field-search">
+            <input class="field-input" type="text" id="city" placeholder="City and District" />
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          </div>
+        </div>
+        <div class="form-group">
+          <textarea class="field-textarea" id="address" placeholder="Address Detail" maxlength="250"></textarea>
+          <p class="char-count"><span id="charCount">0</span> / 250</p>
+        </div>
+
+        <div class="section-gap">
+          <h2 class="section-title">Shipping Method</h2>
+          <div class="info-box" id="shippingBox">
+            Please complete your address details to see available shipping methods.
+          </div>
+          <div class="shipping-options" id="shippingOptions" style="display:none;">
+            <label class="shipping-option">
+              <input type="radio" name="shipping" value="15000" checked />
+              <div class="shipping-detail">
+                <span class="shipping-name">Regular — 3-5 days</span>
+                <span class="shipping-price">Rp 15,000</span>
+              </div>
+            </label>
+            <label class="shipping-option">
+              <input type="radio" name="shipping" value="35000" />
+              <div class="shipping-detail">
+                <span class="shipping-name">Express — 1-2 days</span>
+                <span class="shipping-price">Rp 35,000</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="section-gap">
+          <h2 class="section-title">Payment Method</h2>
+          <label class="payment-option active">
+            <input type="radio" name="payment" value="qris" checked />
+            <span class="qris-badge">QRIS</span>
+            <span class="payment-label">QRIS</span>
+          </label>
+          <label class="payment-option">
+            <input type="radio" name="payment" value="transfer" />
+            <span class="bank-badge">BANK</span>
+            <span class="payment-label">Bank Transfer</span>
+          </label>
+        </div>
+
+      </section>
+
+      <!-- RIGHT: Order Summary -->
+      <aside class="order-summary">
+
+        <div id="productList"></div>
+
+        <hr class="divider" />
+
+        <div class="summary-action clickable" id="toggleNote">
+          <span>✉️ Leave a delivery note (optional)</span>
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+        </div>
+        <div class="note-box" id="noteBox" style="display:none;">
+          <textarea class="field-textarea small" id="deliveryNote" placeholder="Write your delivery note here..." maxlength="150"></textarea>
+        </div>
+
+        <div class="summary-action clickable" id="toggleVoucher">
+          <span>🏷 Voucher</span>
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+        </div>
+          <div class="voucher-box" id="voucherBox" style="display:none;">
+            <!-- Voucher member -->
+          <div id="voucherHint" style="display:none; font-size:12px; color:#6b5f52; margin-bottom:10px; line-height:1.8;"></div>
+          <div class="voucher-input-row">
+            <input class="field-input" type="text" id="voucherCode" placeholder="Enter voucher code" />
+            <button class="btn-apply" id="applyVoucher">Apply</button>
+          </div>
+          <p class="voucher-msg" id="voucherMsg"></p>
+        </div>
+
+        <hr class="divider" />
+
+        <div class="price-row">
+          <span id="subtotalText">Subtotal</span>
+          <span id="subtotalAmt">-</span>
+        </div>
+        <div class="price-row">
+          <span>Shipping</span>
+          <span id="shippingCost" class="muted">—</span>
+        </div>
+        <div class="price-row discount-row" id="discountRow" style="display:none;">
+          <span>Discount</span>
+          <span id="discountAmt" class="discount-val"></span>
+        </div>
+        <div class="price-row" style="font-size:15px;font-weight:500;color:#1a1a1a;">
+          <span>Total Payment</span>
+          <span id="totalPrice">—</span>
+        </div>
+
+        <hr class="divider" />
+
+        <div class="secure-line">
+          🔒 Secure Transaction &nbsp;|&nbsp; Payment is encrypted.
+        </div>
+
+        <div class="tax-notice">
+          Import duties or taxes may apply depending on the destination country.
+        </div>
+
+        <button class="btn-order" id="orderBtn">Place Order</button>
+        <p class="terms">By placing an order, you agree to our <a href="#">Terms &amp; Conditions</a></p>
+
+      </aside>
+    </main>
+
+    <!-- Modal Success -->
+    <div class="modal-overlay" id="modalOverlay">
+      <div class="modal-box">
+        <div class="modal-icon">✅</div>
+        <h3>Order Placed!</h3>
+        <p>Thank you for shopping at <strong>SHEM</strong>.<br/>Your order details will be sent shortly.</p>
+        <button class="modal-close" id="modalClose">Close</button>
+      </div>
+    </div>
+
+    <script src="form.js"></script>
+  </body>
+  </html>

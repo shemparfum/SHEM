@@ -1,0 +1,169 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SHEMPARFUME — Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="login.css">
+    </head>
+    <body>
+
+    <a href="../../index.html" class="back-home">
+        ← Back to Shop
+    </a>
+
+    <!-- Left Panel -->
+    <div class="left-panel">
+        <div class="left-logo">
+        <img src="../../asset/logoshemputih.png" alt="SHEM" />
+        <div class="left-logo-name">SHEMPARFUME</div>
+        </div>
+        <div class="left-tagline">
+        <h2>Welcome<br>to <em>SHEM</em> Family</h2>
+        <p>Sign up as a member and get an exclusive voucher for your first purchase.</p>
+        </div>
+        <div class="left-deco">
+        <span></span><span></span><span></span>
+        </div>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="right-panel">
+        <div class="auth-box">
+
+        <!-- Tabs -->
+        <div class="auth-tabs">
+            <button class="auth-tab active" onclick="switchTab('login')">Login</button>
+            <button class="auth-tab" onclick="switchTab('register')">Register</button>
+        </div>
+
+        <!-- ── LOGIN FORM ── -->
+        <div class="auth-form active" id="formLogin">
+            <h2 class="auth-title">Welcome back</h2>
+            <p class="auth-subtitle">Sign in to your SHEM account</p>
+
+            <div class="login-method">
+            <button class="method-btn active" onclick="switchMethod('email', this)">Email</button>
+            <button class="method-btn" onclick="switchMethod('phone', this)">Phone Number</button>
+            </div>
+
+            <div class="form-group" id="loginEmailGroup">
+            <label class="form-label">Email</label>
+            <input class="form-input" type="email" id="loginEmail" placeholder="email@example.com" />
+            </div>
+
+            <div class="form-group" id="loginPhoneGroup" style="display:none;">
+            <label class="form-label">Phone Number</label>
+            <input class="form-input" type="tel" id="loginPhone" placeholder="08xxxxxxxxxx" />
+            </div>
+
+            <div class="form-group">
+            <label class="form-label">Password</label>
+            <div class="password-wrap">
+                <input class="form-input" type="password" id="loginPassword" placeholder="Enter your password." />
+                <button class="toggle-pw" onclick="togglePassword('loginPassword', this)" type="button">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+            </div>
+            </div>
+
+            <a href="#" class="forgot-link" onclick="showForgot(); return false;">Forgot password?</a>
+
+            <button class="btn-submit" onclick="handleLogin()">Sign In</button>
+
+            <div class="auth-switch">
+            Don't have an account? <button onclick="switchTab('register')">Sign up now</button>
+            </div>
+        </div>
+
+        <!-- ── REGISTER FORM ── -->
+        <div class="auth-form" id="formRegister">
+            <h2 class="auth-title">Create Account</h2>
+            <p class="auth-subtitle">Sign up and enjoy exclusive benefits as a SHEM member</p>
+
+            <div class="form-row">
+            <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input class="form-input" type="text" id="regName" placeholder="Your full name" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Date of Birth</label>
+                <input class="form-input" type="date" id="regDob" />
+            </div>
+            </div>
+
+            <div class="form-group">
+            <label class="form-label">Email</label>
+            <input class="form-input" type="email" id="regEmail" placeholder="email@example.com" />
+            </div>
+
+            <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input class="form-input" type="tel" id="regPhone" placeholder="08xxxxxxxxxx" />
+            </div>
+
+            <div class="form-group">
+            <label class="form-label">Address</label>
+            <input class="form-input" type="text" id="regAddress" placeholder="1 Example Street, City" />
+            </div>
+
+            <div class="form-group">
+            <label class="form-label">Password</label>
+            <div class="password-wrap">
+                <input class="form-input" type="password" id="regPassword" placeholder="Min. 8 characters" />
+                <button class="toggle-pw" onclick="togglePassword('regPassword', this)" type="button">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+            </div>
+            </div>
+
+            <div class="form-group">
+            <label class="form-label">Confirm Password</label>
+            <div class="password-wrap">
+                <input class="form-input" type="password" id="regConfirm" placeholder="Re-enter password" />
+                <button class="toggle-pw" onclick="togglePassword('regConfirm', this)" type="button">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+            </div>
+            </div>
+
+            <button class="btn-submit" onclick="handleRegister()">Sign Up Now</button>
+
+            <div class="auth-switch">
+            Already have an account? <button onclick="switchTab('login')">Log in here</button>
+            </div>
+        </div>
+
+        <!-- ── FORGOT PASSWORD FORM ── -->
+        <div class="auth-form" id="formForgot">
+            <button class="back-btn" onclick="showLogin()">← Back to Login</button>
+            <h2 class="auth-title">Forgot Password?</h2>
+            <p class="auth-subtitle">Enter your email and we will send you a link to reset your password.</p>
+
+            <div class="form-group">
+            <label class="form-label">Email</label>
+            <input class="form-input" type="email" id="forgotEmail" placeholder="email@example.com" />
+            </div>
+
+            <button class="btn-submit" onclick="handleForgot()">Send Reset Link</button>
+        </div>
+
+        <!-- ── SUCCESS STATE ── -->
+        <div class="auth-form" id="formSuccess">
+            <div class="success-box">
+            <div class="success-icon">
+                <svg width="24" height="24" fill="none" stroke="#2d7a3a" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>
+            </div>
+            <h3 id="successTitle">Registration Successful!</h3>
+            <p id="successMsg">Your SHEM account is now active. Check your profile for exclusive vouchers!
+            <button class="btn-submit" style="margin-top:1.5rem;" onclick="goToProfile()">View Profile & Voucher →</button>
+            </div>
+        </div>
+
+        </div>
+    </div>
+
+    <script src="login.js"></script>
+    </body>
+    </html>

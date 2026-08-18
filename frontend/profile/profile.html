@@ -1,0 +1,111 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SHEMPARFUME — Profil Member</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="profile.css">
+    </head>
+    <body>
+
+    <!-- Nav -->
+    <nav>
+        <a href="../../index.html" class="nav-logo">
+        <img src="../../asset/shem.png" alt="SHEM" />
+        SHEMPARFUME
+        </a>
+        <div class="nav-right">
+        <a href="../../index.html" style="font-size:13px;color:var(--mid);text-decoration:none;">← Shop</a>
+        <button class="btn-logout" onclick="handleLogout()">Logout</button>
+        </div>
+    </nav>
+
+    <div class="profile-layout">
+
+        <!-- Sidebar -->
+        <aside class="profile-sidebar">
+        <div class="profile-card">
+            <div class="profile-avatar" id="profileAvatar">?</div>
+            <div class="profile-name" id="profileName">Loading...</div>
+            <div class="profile-email" id="profileEmail">—</div>
+            <div class="member-badge">⭐ SHEM Member</div>
+        </div>
+
+        <div class="sidebar-menu">
+            <div class="sidebar-item active">🎟️ My Voucher</div>
+            <div class="sidebar-item" onclick="window.location.href='index.html'">🛍️ Start Shopping</div>
+            <div class="sidebar-item" onclick="window.location.href='form.html'">📦 Checkout</div>
+            <div class="sidebar-item" onclick="handleLogout()">🚪 Logout</div>
+        </div>
+        </aside>
+
+        <!-- Main -->
+        <main class="profile-main">
+
+        <!-- Voucher Section -->
+        <div class="section-card">
+            <div class="section-card-title">
+            <span>🎟️ My Exclusive Vouchers</span>
+            </div>
+            <div class="voucher-grid" id="voucherGrid">
+            <!-- Diisi oleh JS -->
+            </div>
+        </div>
+
+        <!-- Profile Info -->
+        <div class="section-card">
+            <div class="section-card-title">
+            <span>👤 Account Information</span>
+            <button class="edit-btn" onclick="openEditProfile()">Edit Profile</button>
+            </div>
+            <div class="info-grid" id="profileInfo">
+            <!-- Diisi oleh JS -->
+            </div>
+        </div>
+
+        </main>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+        <!-- EDIT PROFILE MODAL -->
+    <div class="edit-overlay" id="editProfileOverlay" onclick="handleEditClick(event)">
+    <div class="edit-box">
+        <button class="edit-close" onclick="closeEditProfile()">✕</button>
+        <h3 class="edit-title">Edit Profil</h3>
+        <p class="edit-subtitle">Perbarui informasi akun member kamu</p>
+
+        <div class="edit-form-group">
+        <label>Nama Lengkap</label>
+        <input class="edit-field" type="text" id="editName" placeholder="Nama kamu" />
+        </div>
+
+        <div class="edit-form-row">
+        <div class="edit-form-group">
+            <label>Tanggal Lahir</label>
+            <input class="edit-field" type="date" id="editDob" />
+        </div>
+        <div class="edit-form-group">
+            <label>No. HP</label>
+            <input class="edit-field" type="tel" id="editPhone" placeholder="08xxxxxxxxxx" />
+        </div>
+        </div>
+
+        <div class="edit-form-group">
+        <label>Email</label>
+        <input class="edit-field" type="email" id="editEmail" placeholder="email@example.com" />
+        </div>
+
+        <div class="edit-form-group">
+        <label>Alamat</label>
+        <input class="edit-field" type="text" id="editAddress" placeholder="Jl. Contoh No. 1, Kota" />
+        </div>
+
+        <button class="edit-save-btn" id="editSaveBtn" onclick="saveEditProfile()">Simpan Perubahan</button>
+    </div>
+    </div>
+
+    <script src="profile.js"></script>
+    </body>
+    </html>

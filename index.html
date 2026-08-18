@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SHEM exclusive perfumes crafted with luxurious and elegant aromas." />
+  <meta name="author" content="SHEM PARFUME" />
+  <title>SHEMPARFUM</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="/frontend/chatbot/chatbot.css" />
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="../../index.html" class="nav-logo">
+    <img src="../../asset/shem.png" alt="logo Shem" width="60">
+    <span>SHEMPARFUM</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#produk">Collection</a></li>
+    <li><a href="#tentang">About</a></li>
+    <li><a href="#kontak">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="/frontend/loginregister/login.html" class="btn-login-nav" id="navLoginBtn">Login</a>
+    <button class="cart-btn" onclick="toggleCart()" aria-label="CART">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 01-8 0"/>
+      </svg>
+      <span class="cart-badge" id="cartCount">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Colection Exclusive 2026</p>
+    <h1 class="hero-title">SHEM<br><em>PARFUM</em></h1>
+    <p class="hero-desc">Extrait de parfume for modern profesionals.</p>
+    <div class="hero-actions">
+      <a href="#produk" class="btn-primary">View Collection ?</a>
+      <a href="#tentang" class="btn-outline">About Us</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class=".bottle-img">
+      <img src="asset/sheem.png" alt="SHEMParfum" class="bottle-img" />
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="produk">
+  <div class="section-header">
+    <p class="section-eyebrow">Our Collection</p>
+    <h2 class="section-title">Featured Fragrances</h2>
+  </div>
+
+  <div class="products-section">
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterProducts('semua', this)">All</button>
+      <button class="filter-btn" onclick="filterProducts('floral', this)">Floral</button>
+      <button class="filter-btn" onclick="filterProducts('woody', this)">Woody</button>
+      <button class="filter-btn" onclick="filterProducts('oriental', this)">Oriental</button>
+      <button class="filter-btn" onclick="filterProducts('fresh', this)">Fresh</button>
+    </div>
+    <div class="products-grid" id="productsGrid"></div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story-section" id="tentang">
+  <div class="story-visual">
+    <img src="asset/boooth.png" alt="SHEM Parfum" class="story-logo-img" />
+  </div>
+  <div class="story-text">
+    <p class="story-eyebrow">Our Story</p>
+    <h2 class="story-title">Smells Like Success.
+    <p class="story-desc">SHEMParfum was born from a passion for the art of fragrance. We believe everyone has a unique story and character, and perfume is a subtle way to express it. With high-quality ingredients and an elegant touch, every SHEM scent is designed to accompany your journey leaving a warm, confident, and unforgettable impression</p>
+    <a href="#kontak" class="btn-outline" style="color:white; border-color:rgba(255,255,255,0.4); width:fit-content;">Contact Us</a>
+  </div>
+</section>
+
+<!--INSTAGRAM FEED-->
+<section class="ig-section" id="instagram">
+  <div class="section-header">
+    <p class="section-eyebrow">Follow Us</p>
+    <h2 class="section-title">@shem.parfum</h2>
+  </div>
+
+  <div class="ig-grid-feed" id="igFeedGrid"></div>
+
+    <div style="text-align:center; margin-top: 2rem;">
+      <a href="https://www.instagram.com/shem.parfum" target="_blank" rel="noopener" class="btn-outline">
+        View on instagram
+      </a>
+    </div>
+</section>
+
+<!-- CART SIDEBAR -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h2 class="cart-title">Cart</h2>
+    <button class="cart-close" onclick="toggleCart()">x</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty" id="cartEmpty" style="display:flex; flex-direction:column; align-items:center; gap:0.5rem;">
+      <svg width="40" height="40" fill="none" stroke="#b89a6a" stroke-width="1" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <p>Your cart is empty.</p>
+    </div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total-row">
+      <span class="cart-total-label">Total</span>
+      <span class="cart-total-amount" id="cartTotal">Rp 0</span>
+    </div>
+    <button class="checkout-btn" onclick="handleCheckout()">Go to checkout ?</button>
+  </div>
+</div>
+
+<!-- PRODUCT MODAL -->
+<div class="modal-overlay" id="productModal" onclick="handleModalClick(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">x</button>
+    <div class="modal-inner">
+
+      <div class="modal-left">
+        <div class="modal-img-wrap">
+          <span class="modal-badge" id="modalBadge"></span>
+          <img id="modalImg" src="" alt="" />
+        </div>
+      </div>
+
+      <div class="modal-right">
+        <p class="modal-category" id="modalCategory"></p>
+        <h2 class="modal-name" id="modalName"></h2>
+        <p class="modal-notes" id="modalNotes"></p>
+        <p class="modal-desc" id="modalDesc"></p>
+
+        <div class="modal-price-row">
+          <span class="modal-original-price" id="modalOriginalPrice"></span>
+          <span class="modal-price" id="modalPrice"></span>
+        </div>
+
+        <div class="modal-sizes">
+          <p class="modal-size-label">Size</p>
+          <div class="modal-sizes-list" id="modalSizes"></div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="modal-add-cart" id="modalAddCart">+ CART</button>
+          <button class="modal-buy" id="modalBuy">BUY</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- MARKETPLACE MODAL -->
+<div class="market-overlay" id="marketModal">
+  <div class="market-box">
+    <button type="button" class="market-close" id="marketCloseBtn">x</button>
+    <p class="market-eyebrow">Order Now</p>
+    <h3 class="market-title" id="marketProductName"></h3>
+    <p class="market-subtitle">Choose your preferred marketplace.</p>
+
+    <div class="market-list">
+  <!-- Beli di website -->
+  <div class="market-item website" onclick="buyOnWebsite()">
+    <div class="market-item-text">
+      <div style="display:flex; align-items:center; gap:8px;">
+  <span class="market-item-label">Buy on Website</span>
+  <span class="market-sale-badge" style="display:inline-flex; align-items:center;">SALE</span>
+</div>
+        <span class="market-item-sub">Add to Cart</span>
+    </div>
+  </div>
+
+  <div class="market-divider">atau beli di marketplace</div>
+
+  <a id="linkShopee" href="#" target="_blank" rel="noopener" class="market-item shopee">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Shopee_logo.svg/960px-Shopee_logo.svg.png" alt="Shopee" />
+    <div class="market-item-text">
+      <span class="market-item-label">Shopee</span>
+      <span class="market-item-sub">Click to open the Shopee store.</span>
+    </div>
+  </a>
+
+  <a id="linkTokopedia" href="#" target="_blank" rel="noopener" class="market-item tokopedia">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Toped_2018-05.png/960px-Toped_2018-05.png" alt="Tokopedia" />
+    <div class="market-item-text">
+      <span class="market-item-label">Tokopedia</span>
+      <span class="market-item-sub">Click to open the Tokopedia store.</span>
+    </div>
+  </a>
+
+  <a id="linkTiktok" href="#" target="_blank" rel="noopener" class="market-item tiktok">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Tiktok_icon.svg/960px-Tiktok_icon.svg.png" alt="TikTok Shop" />
+    <div class="market-item-text">
+      <span class="market-item-label">TikTok Shop</span>
+      <span class="market-item-sub">Click to open the TikTok Shop.</span>
+    </div>
+  </a>
+
+  </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+<footer id="kontak">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand-name">SHEMPARFUM</div>
+      <p class="footer-desc">Exclusive fragrances with a touch of luxury to accompany your special moments.</p>
+    </div>
+    
+    <div class="footer-col">
+      <h4>Collection</h4>
+      <ul>
+        <li><a href="#">Floral</a></li>
+        <li><a href="#">Woody</a></li>
+        <li><a href="#">Oriental</a></li>
+        <li><a href="#">Fresh</a></li>
+        <li><a href="#">Limited Edition</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Help</h4>
+      <ul>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=shem.parfum@gmail.com">shem.parfum@gmail.com</a></li>
+        <li><a href="https://wa.me/628132261796" target="_blank">WhatsApp</a></li> 
+        <li><a href="https://www.instagram.com/shem.parfum?igsh=MXZhMnQ0ODZ5YjU2eQ==">Instagram</a></li>
+        <li><a href="https://www.tiktok.com/@shem.parfum?_r=1&_t=ZS-95nqzNrZ4US">TikTok</a></li>
+        <li><a href="https://shopee.co.id/shem_parfum">Shopee</a></li>
+        <li><a href="https://www.tokopedia.com/shem-parfum">Tokopedia</a></li>
+    </div>
+    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.1509036186208!2d106.80029607499058!3d-6.24383499374451!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f182a5b1fd55%3A0x2769e5242ea724b0!2sSHEM%20Parfum!5e0!3m2!1sid!2sid!4v1782141102070!5m2!1sid!2sid" 
+                        width="600"
+                        height="450"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                      </iframe>
+                    </div>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>2025 SHEMPARFUM. All rights reserved.</span>
+    <span>SMELL LIKE SUCCESS.</span>
+  </div>
+</footer>
+
+  <!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+  <script src="script.js" defer></script>
+  <script src="/frontend/chatbot/chatbot.js"></script>
+</body>
+</html>
