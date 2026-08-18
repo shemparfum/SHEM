@@ -23,7 +23,7 @@
     }
 
     // ══════════════════════════════════════════════
-    // DEMO LOGIN (sementara, sebelum backend siap)
+    // DEMO LOGIN (sementara, sebelum backend lu jadi)
     // ══════════════════════════════════════════════
     const DEMO_ADMIN = { email: 'shemparfum@gmail.com', password: 'admin123' };
 
@@ -71,7 +71,7 @@
             errEl.textContent = 'Terjadi kesalahan. Coba lagi.';
         });
     } else {
-        // Demo login lokal — hapus kalau backend sudah siap
+        // Demo login lokal — hapus kalau backend lu udeh jadi
         setTimeout(function () {
         btn.textContent = 'Masuk';
         btn.disabled = false;
@@ -110,7 +110,7 @@
     });
 
     // ══════════════════════════════════════════════
-    // DATA STORE (in-memory, fallback kalau belum backend)
+    // DATA STORE (in-memory, fallback kalau belum ada backend dari lu)
     // ══════════════════════════════════════════════
 
     let ADMIN_PRODUCTS = [
@@ -137,8 +137,8 @@
     { id: 3, name: 'Raka Aditya',      email: 'raka.aditya@gmail.com',   phone: '085678901234', joined: '05 Jun 2026', voucher: null },
     ];
 
-    // Baca member dari localStorage kalau ada; kalau belum, pakai default lalu simpan
-    // supaya voucher.html (halaman terpisah) selalu punya data yang sama.
+    // Baca member dari localStorage kalau ada; kalau belum, pakai default trs simpan
+    // Biar voucher.html (halamanny kepisah) selalu punya data yang sama.
     function loadCustomers() {
     try {
         var saved = localStorage.getItem(CUSTOMERS_STORAGE_KEY);
@@ -451,7 +451,7 @@
     function fetchMidtransOrders() {
     var button = document.querySelector('[onclick="fetchMidtransOrders()"]');
     if (!USE_BACKEND) {
-        showToast('Mode lokal aktif. Backend perlu menyediakan endpoint pesanan Midtrans.');
+        showToast('Mode lokal aktif. Backend lu sediain endpoint pesanan dr Midtrans.');
         return;
     }
     if (button) { button.disabled = true; button.textContent = 'Menarik...'; }
