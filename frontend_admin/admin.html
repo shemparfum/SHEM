@@ -49,11 +49,11 @@
     </div>
 
     <!-- ═══════════════════════════════════════ -->
-    <!-- DASHBOARD — disembunyikan sampai login   -->
+    <!-- DASHBOARD — disembunyikan sampai user login   -->
     <!-- ═══════════════════════════════════════ -->
     <div class="container" id="adminContainer" style="display:none;">
 
-        <!-- ═══ MOBILE MENU BUTTON & OVERLAY (khusus layar sempit) ═══ -->
+        <!-- ═══ MOBILE MENU BUTTON & OVERLAY (buat tampilan sidebar hp) ═══ -->
         <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Buka menu">☰</button>
         <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
@@ -195,7 +195,7 @@
             </div>
         </section>
 
-        <!-- ── PELANGGAN / MEMBER ── -->
+        <!-- ── MEMBER ── -->
         <section class="page" id="page-pelanggan">
             <div class="page-head">
             <div>
@@ -239,52 +239,6 @@
                 <thead><tr><th>Pelanggan</th><th>Produk</th><th>Rating</th><th>Komentar</th><th>Balasan Admin</th><th>Status</th><th>Aksi</th></tr></thead>
                 <tbody id="reviewTable"></tbody>
                 </table>
-            </div>
-            </div>
-        </section>
-
-        <!-- ── ARTIKEL ── -->
-        <section class="page" id="page-artikel">
-            <div class="page-head">
-            <div>
-                <h2>Artikel</h2>
-                <p class="page-sub">Kelola konten blog dan artikel SHEM</p>
-            </div>
-            </div>
-            <div class="table-box">
-            <div class="table-header">
-                <h3>Daftar Artikel <span class="count-badge" id="artikelCount">0</span></h3>
-                <button>+ Tulis Artikel</button>
-            </div>
-            <div class="empty-state">
-                <div class="empty-icon">📰</div>
-                <p>Belum ada artikel.</p>
-                <p class="empty-sub">Artikel yang kamu tulis akan muncul di sini.</p>
-            </div>
-            </div>
-        </section>
-
-        <!-- ── PENGATURAN ── -->
-        <section class="page" id="page-pengaturan">
-            <div class="page-head">
-            <div>
-                <h2>Pengaturan</h2>
-                <p class="page-sub">Konfigurasi umum toko SHEM</p>
-            </div>
-            </div>
-            <div class="table-box settings-box">
-            <div class="setting-row">
-                <div>
-                <h4>Mode Backend</h4>
-                <p>Status koneksi ke server backend (USE_BACKEND)</p>
-                </div>
-                <span class="status-pill off" id="backendStatusPill">Nonaktif</span>
-            </div>
-            <div class="setting-row">
-                <div><h4>Nama Toko</h4><p>SHEMPARFUME</p></div>
-            </div>
-            <div class="setting-row">
-                <div><h4>Email Kontak</h4><p>info@shemparfum.com</p></div>
             </div>
             </div>
         </section>
